@@ -25,7 +25,7 @@ TodoList.render = function(){
     const checkedClass = checked !== "" ? "class='checked'" : ""
 
     template += `
-      <li ${checkedClass}">
+      <li ${checkedClass}>
         <div class="content">
           <input id="check-${idx}" data-index="${idx}" type="checkbox" ${checked} />
           <label for="check-${idx}">
