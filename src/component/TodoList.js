@@ -4,8 +4,8 @@ import getDateFormat from '../plugins/GetDateFormat.js'
 let TodoList = {}
 
 TodoList.list = [
-  { date: '2020-08-07', article: '하나 추가했어요.'},
-  { date: '2020-08-08',article: '추가된 두번째 리스트 입니다.'}
+  { date: '2020-08-07', article: '하나 추가했어요.', checked: false },
+  { date: '2020-08-08',article: '추가된 두번째 리스트 입니다.', checked: true}
 ]
 
 TodoList.rootEl = document.querySelector('#todo-items')
@@ -19,13 +19,21 @@ TodoList.init = function(){
 TodoList.render = function(){
   let template = "";
 
-  TodoList.list.forEach(item => {
-    const highlighter = (item.date === getDateFormat()) ? "class='today'" : ""
+  TodoList.list.forEach((item, idx) => {
+    const highlighter = (item.date === getDateFormat()) ? "today" : ""
+    const checked = item.checked ? "checked" : ""
+    const checkedClass = checked !== "" ? "class='checked'" : ""
 
     template += `
-      <li ${highlighter}>
-        <time datetime="${item.date}">${item.date}</time><span>${item.article}</span>
-        <button data-bind="delete">x</button>
+      <li ${checkedClass}">
+        <div class="content">
+          <input id="check-${idx}" data-index="${idx}" type="checkbox" ${checked} />
+          <label for="check-${idx}">
+            <time class="${highlighter}" datetime="${item.date}">${item.date}</time>
+            ${item.article}
+          </label>
+          <button data-bindatc="${item.article}">&#10005;</button>
+        </div>
       </li>
     `
   });
@@ -42,15 +50,26 @@ TodoList.added = function(data){
 
 TodoList.bindEvent = function() {
   this.rootEl.addEventListener('click', el => {
-    this.deleteItem(el)
+    if(el.target.tagName === 'INPUT') this.checkDataToggle(el)
+    if(el.target.tagName === 'BUTTON') this.deleteItem(el)
   })
 }
 
 TodoList.deleteItem = function(el) {
-  if(!el.target.dataset.bind) return;
-  const val = el.target.parentElement.querySelector('span').innerText
+  if(!el.target.dataset.bindatc) return;
+  const val = el.target.dataset.bindatc
 
-  const newList = this.list.concat().filter(v => v !== val)  
+  const newList = this.list.concat().filter(v => {
+    return v.article !== val
+  })  
+  this.list = newList
+
+  this.render()
+}
+
+TodoList.checkDataToggle = function(el) {
+  let newList = this.list.concat()
+  newList[el.target.dataset.index].checked = el.target.checked
   this.list = newList
 
   this.render()
