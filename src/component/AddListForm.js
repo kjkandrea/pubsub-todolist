@@ -4,9 +4,9 @@ import GetDateFormat from '../plugins/GetDateFormat.js'
 let AddListForm = {}
 
 AddListForm.render = function(){
-  const root = document.querySelector('#app')
+  const root = document.querySelector('#form')
 
-  root.insertAdjacentHTML('beforebegin', this.componentHTML())
+  root.innerHTML = this.componentHTML()
   this.addEvent()
 }
 
