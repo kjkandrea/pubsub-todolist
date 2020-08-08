@@ -1,4 +1,5 @@
 import { pubsub } from '../lib/pubsub.js'
+import GetDateFormat from '../plugins/GetDateFormat.js'
 
 let AddListForm = {}
 
@@ -34,11 +35,10 @@ AddListForm.formValidate = function(el){
     return
   }
   
-  let title = val
+  let article = val
   val = ""
-  console.log(title)
 
-  pubsub.publish('todoAdded', title)
+  pubsub.publish('todoAdded', { date: GetDateFormat(), article: article })
 
 }
 

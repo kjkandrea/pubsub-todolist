@@ -5,7 +5,6 @@ export const pubsub = {
     this.events[eventName].push(fn)
   },
   publish: function(eventName, data) {
-    console.log(this.events)
     if (this.events[eventName]) this.events[eventName].forEach(f => {
       f(data)
     })

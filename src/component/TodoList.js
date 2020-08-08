@@ -1,10 +1,11 @@
 import { pubsub } from '../lib/pubsub.js'
+import getDateFormat from '../plugins/GetDateFormat.js'
 
 let TodoList = {}
 
 TodoList.list = [
-  '하나 추가했어요.',
-  '추가된 두번째 리스트 입니다.'
+  { date: '2020-08-07', article: '하나 추가했어요.'},
+  { date: '2020-08-08',article: '추가된 두번째 리스트 입니다.'}
 ]
 
 TodoList.rootEl = document.querySelector('#todo-items')
@@ -19,7 +20,14 @@ TodoList.render = function(){
   let template = "";
 
   TodoList.list.forEach(item => {
-    template += `<li><span>${item}</span><button data-bind="delete">x</li>`
+    const highlighter = (item.date === getDateFormat()) ? "class='today'" : ""
+
+    template += `
+      <li ${highlighter}>
+        <time datetime="${item.date}">${item.date}</time><span>${item.article}</span>
+        <button data-bind="delete">x</button>
+      </li>
+    `
   });
 
   this.rootEl.innerHTML = template
