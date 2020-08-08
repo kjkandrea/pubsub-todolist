@@ -64,6 +64,8 @@ TodoList.deleteItem = function(el) {
   })  
   this.list = newList
 
+  pubsub.publish('todoUpdated')
+
   this.render()
 }
 
@@ -71,6 +73,8 @@ TodoList.checkDataToggle = function(el) {
   let newList = this.list.concat()
   newList[el.target.dataset.index].checked = el.target.checked
   this.list = newList
+
+  pubsub.publish('todoUpdated')
 
   this.render()
 }

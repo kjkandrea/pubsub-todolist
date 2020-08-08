@@ -3,11 +3,15 @@ import GetDateFormat from '../plugins/GetDateFormat.js'
 
 let AddListForm = {}
 
+AddListForm.init = function(){
+  this.render()
+  this.bindEvent()
+}
+
 AddListForm.render = function(){
   const root = document.querySelector('#form')
 
   root.innerHTML = this.componentHTML()
-  this.addEvent()
 }
 
 AddListForm.componentHTML = function(){
@@ -20,7 +24,7 @@ AddListForm.componentHTML = function(){
   return template;
 }
 
-AddListForm.addEvent = function(){
+AddListForm.bindEvent = function(){
   const form = document.querySelector('#todolist-form')
   form.addEventListener('submit', el => this.formValidate(el))
 }
