@@ -42,6 +42,14 @@ TodoList.render = function(){
 }
 
 TodoList.added = function(data){
+  const duplicate = TodoList.list.some(v => {
+    if (v.article === data.article) return true
+  })
+  if (duplicate) {
+    alert('같은 항목이 이미 있어요!')
+    return
+  }
+
   const list = [...TodoList.list, data]
   TodoList.list = list
 
