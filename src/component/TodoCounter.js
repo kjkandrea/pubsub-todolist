@@ -13,10 +13,11 @@ TodoCounter.init = function(){
 TodoCounter.render = function(){
   let template = ""
   let counter = TodoCounter.checkCounter(TodoList.list)
+  let counterClass = counter >= 1 ? "class='highlight'" : ""
 
   template += `
     <div>완료 항목의 갯수는</div>
-    <strong>${counter}</strong>
+    <strong ${counterClass}>${counter}</strong>
     <div>개 입니다.</div>
   `
   

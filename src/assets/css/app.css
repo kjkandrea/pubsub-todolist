@@ -52,3 +52,21 @@ html {
 #app #todo-items li:nth-child(n + 2) {
   margin-top: 5px;
 }
+
+#app #todo-counter {
+  width:fit-content;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#app #todo-counter strong {
+  font-size: 2rem;
+  color: #555;
+}
+
+#app #todo-counter strong.highlight {
+  color: rgba(0, 130, 255, 0.9)
+}
